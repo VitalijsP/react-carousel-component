@@ -43,7 +43,7 @@ module.exports = {
     }),
     new ForkTsCheckerWebpackPlugin(),
   ],
-  devtool: "source-map", // for debugging "cheap-module-eval-source-map" , prodaction No, after that restart server
+  devtool: "source-map", /* for debugging "cheap-module-eval-source-map" , prodaction No, after that restart server */
   devServer: {
     port: 8000,
     contentBase: path.resolve(__dirname, "dist"),
