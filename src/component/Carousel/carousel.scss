@@ -1,0 +1,101 @@
+@import "../../styles/variables";
+
+.carousel {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transform: translate(0);
+  transition: transform 0.3s ease-out;
+  cursor: grab;
+}
+
+.slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  user-select: none;
+  // box-shadow: 2px 2px 12px -2px $Gray-3;
+  border: 1px solid $Gray-3;
+  border-radius: 4px;
+  background-color: $Gray-0;
+  margin: 5px;
+  opacity: 0.8;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.slide h1 {
+  font-size: 6.5rem;
+  color: $Ocean;
+  margin-bottom: 1rem;
+}
+
+.slide h3 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.img-wrapper {
+  position: relative;
+  padding-top: 75%;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.img-wrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.button {
+  text-decoration: none;
+  font-size: 1.8rem;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  border: 1px solid $Gray-3;
+  border-radius: 4px;
+
+  padding: 1rem;
+  color: $Ocean;
+  background-color: $Snow;
+
+  &:hover {
+    background-color: $Gray-1;
+  }
+}
+
+.grabbing {
+  cursor: grabbing;
+}
+
+.grabbing .slide img {
+  transform: scale(0.9);
+}
+
+@media only screen and (max-width: 800px) {
+  .slide h1 {
+    font-size: 2.5rem;
+    color: $Ocean;
+    margin-bottom: 1rem;
+  }
+  .slide h3 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .button {
+    font-size: 1.5rem;
+  }
+}

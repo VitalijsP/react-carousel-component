@@ -1,0 +1,17 @@
+/* 
+
+.carousel {
+  position:relative;
+  height: 100vh;
+  display: inline-flex;
+  overflow: hidden;
+  /* transform: translateX(0); */
+  /* transition: transform 0.3s ease-out;
+  cursor: grab;
+  background-color: rgb(192, 45, 167);
+}
+.slider {
+  position: relative;
+} 
+
+*/

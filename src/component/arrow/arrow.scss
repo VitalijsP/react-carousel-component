@@ -1,0 +1,46 @@
+@import "../../styles/variables";
+
+.arrow-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6rem;
+}
+
+.arrow {
+  position: absolute;
+  top: 0;
+  border: none;
+  border-radius: 0 6rem 6rem 0;
+  outline: none;
+  user-select: none;
+  cursor: pointer;
+  width: 100%;
+  z-index: 999;
+  height: 100%;
+  opacity: 0.1;
+
+  span {
+    position: absolute;
+    left: 0;
+    line-height: 0;
+    font-size: 6rem;
+    height: 100%;
+    opacity: 0.8;
+  }
+
+  &:hover {
+    opacity: 0.2;
+  }
+}
+
+.left {
+  
+  transform: rotate(180deg);
+  left: 0;
+}
+
+.right {
+  right: 0;
+}
