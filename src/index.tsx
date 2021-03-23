@@ -3,6 +3,6 @@ import './styles/base.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Carousel } from './carousel/Carousel';
+import { App } from './App';
 
-ReactDOM.render(<Carousel />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));

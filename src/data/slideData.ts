@@ -1,11 +1,11 @@
-export type CardData = {
+export type SlideData = {
   title: string;
   body: string;
   urlTest: string;
   url: string;
 };
 
-export const cardsData: CardData[] = [
+export const slideData: SlideData[] = [
   {
     title: 'Zero',
     body: 'This is index Zero',

@@ -1,26 +1,39 @@
-import "./carousel.scss";
-import React, { FC, useEffect, useState } from "react";
-import { CardData, cardsData } from "../data/cardsData";
+import './carousel.scss';
 
-export const Carousel: FC = () => {
-  const [sources, setSources] = useState<CardData[]>(cardsData);
+import React, { FC, ReactNodeArray, useEffect, useState } from 'react';
+
+type Props = {
+  visibleSlides?: number;
+  children: ReactNodeArray;
+};
+
+export const Carousel: FC<Props> = ({ children, visibleSlides = 1 }) => {
+  const [sources, setSources] = useState<ReactNodeArray>(children);
   const [dragDirection, setDragDirection] = useState<number[]>([]);
   const [touchDirection, setTouchDirection] = useState<number[]>([]);
+  const [translate, setTtranslate] = useState(0);  
 
-  const firstCard = sources[0];
-  const lastCard = sources[sources.length - 1];
+  // console.log(
+  //   `%c 'children: ', ${children}`,
+  //   "color: red; font-size:20px"
+  //   )
+
+  // console.log('children: ',children)
+
+  const firstSlide = sources[0];
+  const lastSlide = sources[sources.length - 1];
 
   const shiftLeft = () => {
     const changedOrderSources = [...sources];
     changedOrderSources.pop();
-    changedOrderSources.unshift(lastCard);
+    changedOrderSources.unshift(lastSlide);
     setSources(changedOrderSources);
   };
 
   const shiftRight = () => {
     const changedOrderSources = [...sources];
     changedOrderSources.shift();
-    changedOrderSources.push(firstCard);
+    changedOrderSources.push(firstSlide);
     setSources(changedOrderSources);
   };
 
@@ -47,35 +60,30 @@ export const Carousel: FC = () => {
   }, [touchDirection]);
 
   return (
-    <div className="carousel">
+    <div
+      className="carousel"
+      onMouseDown={(e) => setDragDirection([e.clientX])}
+      onMouseUp={(e) => setDragDirection([...dragDirection, e.clientX])}
+      onMouseMove={(e) => setTtranslate(e.clientX)}
+      onTouchStart={(e) => setTouchDirection([e.changedTouches[0].clientX])}
+      onTouchEnd={(e) => setTouchDirection([...touchDirection, e.changedTouches[0].clientX])
+      }
+    >
       {sources
-        .filter((card, index) => index < 3)
-        .map(({ url, urlTest, title, body }) => (
-          <div
-            onMouseDown={(e) => setDragDirection([e.clientX])}
-            onMouseUp={(e) => setDragDirection([...dragDirection, e.clientX])}
-            onTouchStart={(e) =>
-              setTouchDirection([e.changedTouches[0].clientX])
-            }
-            onTouchEnd={(e) =>
-              setTouchDirection([
-                ...touchDirection,
-                e.changedTouches[0].clientX,
-              ])
-            }
-            className={`slide grabbing`}
-            key={title}
-          >
-            <h1>{title}</h1>
-            <h3>{body}</h3>
-            <div className="img-wrapper">
-              <img draggable={false} src={urlTest} alt="image" title={title} />
+        .filter((card, index) => index < visibleSlides)
+        .map((slide, index) => {
+          return (
+            <div
+              className="slide"
+              // style={{
+              //   transform: `translate(${translate - dragDirection[0]}px)`,
+              // }}
+              key={`${index}`}
+            >
+              {slide}
             </div>
-            <a className="button" href="#">
-              Read more...
-            </a>
-          </div>
-        ))}
+          );
+        })}
     </div>
   );
 };
