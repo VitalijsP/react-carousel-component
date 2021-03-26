@@ -45,7 +45,7 @@ module.exports = {
   ],
   devtool: "source-map", /* for debugging "cheap-module-eval-source-map" , prodaction No, after that restart server */
   devServer: {
-    port: 8000,
+    port: 5000,
     contentBase: path.resolve(__dirname, "dist"),
   },
 };

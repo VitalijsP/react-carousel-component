@@ -11,7 +11,9 @@ export const Carousel: FC<Props> = ({ children, visibleSlides = 1 }) => {
   const [sources, setSources] = useState<ReactNodeArray>(children);
   const [dragDirection, setDragDirection] = useState<number[]>([]);
   const [touchDirection, setTouchDirection] = useState<number[]>([]);
-  const [translate, setTtranslate] = useState(0);  
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [translate, setTranslate] = useState(0);
 
   // console.log(
   //   `%c 'children: ', ${children}`,
@@ -24,6 +26,10 @@ export const Carousel: FC<Props> = ({ children, visibleSlides = 1 }) => {
   const lastSlide = sources[sources.length - 1];
 
   const shiftLeft = () => {
+    setCurrentIndex(currentIndex - 1);
+    if (currentIndex <= 0) {
+      setCurrentIndex(sources.length - 1);
+    }
     const changedOrderSources = [...sources];
     changedOrderSources.pop();
     changedOrderSources.unshift(lastSlide);
@@ -31,6 +37,10 @@ export const Carousel: FC<Props> = ({ children, visibleSlides = 1 }) => {
   };
 
   const shiftRight = () => {
+    setCurrentIndex(currentIndex + 1);
+    if (currentIndex >= sources.length - 1) {
+      setCurrentIndex(0);
+    }
     const changedOrderSources = [...sources];
     changedOrderSources.shift();
     changedOrderSources.push(firstSlide);
@@ -59,14 +69,34 @@ export const Carousel: FC<Props> = ({ children, visibleSlides = 1 }) => {
     }
   }, [touchDirection]);
 
+  const mouseDownHandler = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    // setTranslate([...translate, ])
+    setDragDirection([e.clientX]);
+    setIsDragging(true);
+  };
+
+  const mouseUpHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    setDragDirection([...dragDirection, e.clientX]);
+    setIsDragging(false);
+  };
+
+  const mouseMoveHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (isDragging) {
+      setTranslate(e.clientX)
+    }
+  }
+
   return (
     <div
       className="carousel"
-      onMouseDown={(e) => setDragDirection([e.clientX])}
-      onMouseUp={(e) => setDragDirection([...dragDirection, e.clientX])}
-      onMouseMove={(e) => setTtranslate(e.clientX)}
+      onMouseDown={(e) => mouseDownHandler(e)}
+      onMouseUp={(e) => mouseUpHandler(e)}
+      onMouseMove={(e) => mouseMoveHandler(e)}
       onTouchStart={(e) => setTouchDirection([e.changedTouches[0].clientX])}
-      onTouchEnd={(e) => setTouchDirection([...touchDirection, e.changedTouches[0].clientX])
+      onTouchEnd={(e) =>
+        setTouchDirection([...touchDirection, e.changedTouches[0].clientX])
       }
     >
       {sources
@@ -74,11 +104,9 @@ export const Carousel: FC<Props> = ({ children, visibleSlides = 1 }) => {
         .map((slide, index) => {
           return (
             <div
-              className="slide"
-              // style={{
-              //   transform: `translate(${translate - dragDirection[0]}px)`,
-              // }}
               key={`${index}`}
+              className="slide"
+              style={{ transform: `translate(${translate - dragDirection[0]}px)`}}
             >
               {slide}
             </div>

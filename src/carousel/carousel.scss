@@ -1,11 +1,12 @@
 @import "../styles/variables";
 
 .carousel {
+  position:relative;
   display: flex;
-  // align-items: stretch;
   align-items: center;
   justify-content: center;
   height: 100vh;
+  width: 100%;
 
   transform: translate(0);
   // transition: transform 0.3s ease-out;
@@ -13,6 +14,7 @@
 }
 
 .slide {
+  position:relative;
   overflow: hidden;
   display: flex;
   align-items:center;
