@@ -2,15 +2,13 @@
 .carousel__dots {
   cursor: pointer;
   display: flex;
-  font-size: 30px;
   justify-content: center;
   padding: 4px 0;
 }
 
 .carousel__dot {
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
+  width: 5%;
+  min-height: 10px;
   background-color: $DarkBlue;
   justify-content: center;
   margin: 2px;

@@ -2,13 +2,14 @@
 
 .heading__title {
   display: flex;
+  font-size: 4vw;
   width: 100%;
   justify-content: center;
   color: $DarkBlue;
   padding: 1vw 0;
 }
 
-.slide {
+.carousel__content {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -18,13 +19,13 @@
   margin-bottom: 2vw;
 }
 
-.slide h1 {
+.carousel__content h1 {
   font-size: 4vw;
   color: $Ocean;
   margin-bottom: 0.2vw;
 }
 
-.slide p {
+.carousel__content p {
   font-size: 2.5vw;
   margin-bottom: 0.2vw;
   color: $Danger;
@@ -44,7 +45,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  max-width: 100%;
+  width: 100%;
   height: 100%;
 }
 

@@ -26,11 +26,16 @@ export const App: FC = () => {
       </Carousel> */}
       <Carousel>
         {slideData.map(({ url, title, body }, index) => (
-          <div className="slide" key={index}>
+          <div className="carousel__content" key={index}>
             <h1>{title}</h1>
             <p>{body}</p>
             <figure className="img-wrapper">
-              <img draggable={false} src={url} alt="image" title={title} />
+              <img 
+                draggable={false} 
+                src={url} 
+                title={title} 
+                alt="image" 
+              />
             </figure>
             <a className="button" href="#">
               Read more...
