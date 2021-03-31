@@ -1,21 +1,21 @@
 @import "../src/styles/variables";
 
+.heading__title {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  color: $DarkBlue;
+  padding: 1vw 0;
+}
+
 .slide {
-  position: absolute;
   display: flex;
   flex-direction: column;
-  top: 0;
-  bottom: 0;
   width: 100%;
-  height: 100%;
-  opacity: 0.9;
-  background-color: $Gray-0;
+  align-items: center;
   user-select: none;
-  padding:1vw;
-
-  &:hover {
-    opacity: 1;
-  }
+  padding: 0 1vw;
+  margin-bottom: 2vw;
 }
 
 .slide h1 {
@@ -24,7 +24,7 @@
   margin-bottom: 0.2vw;
 }
 
-.slide h3 {
+.slide p {
   font-size: 2.5vw;
   margin-bottom: 0.2vw;
   color: $Danger;
@@ -32,58 +32,35 @@
 
 .img-wrapper {
   position: relative;
-  padding-top: 75%;
+  padding-top: 50%;
   width: 100%;
   margin-bottom: 1.5vw;
-  border: 1px solid $SkyBlue;
+  border: 1px solid $DarkBlue;
+  border-radius: 3px;
+  overflow: hidden;
 }
+
 .img-wrapper img {
   position: absolute;
   top: 0;
   left: 0;
-  bottom: 0;
-  right: 0;
   max-width: 100%;
   height: 100%;
-  border-radius: 3px;
 }
 
 .button {
   text-decoration: none;
-  font-size: 1.8vw;
-  text-align: center;
+  font-size: 2.5vw;
   letter-spacing: 0.1rem;
-  border: 1px solid $Gray-3;
+  border: 1px solid $Ocean;
   border-radius: 3px;
   padding: 0.5vw 0.9vw;
   color: $Ocean;
-  background-color: $Snow;
+  background-color: $Gray-0;
+  opacity: 0.8;
 
   &:hover {
     background-color: $Gray-1;
+    opacity: 1;
   }
 }
-
-.grabbing {
-  cursor: grabbing;
-}
-
-.grabbing .slide img {
-  transform: scale(0.9);
-}
-
-// @media only screen and (max-width: 800px) {
-//   .slide h1 {
-//     font-size: 2.5rem;
-//     color: $Ocean;
-//     margin-bottom: 1rem;
-//   }
-//   .slide h3 {
-//     font-size: 1.5rem;
-//     text-align: center;
-//     margin-bottom: 1rem;
-//   }
-//   .button {
-//     font-size: 1.5rem;
-//   }
-// }

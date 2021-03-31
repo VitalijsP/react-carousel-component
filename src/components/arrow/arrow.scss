@@ -1,0 +1,32 @@
+@import "../../styles/variables";
+.arrow {
+  position: absolute;
+  display: flex;
+  height: 100%;
+  width: 8%;
+  align-items: center;
+  top: 0;
+  z-index: 99;
+  background-color: white;
+  font-size: 4vw;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  opacity: 0.1;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.3;
+  }
+}
+
+.left {
+  left: -1vw;
+  transform: rotate(180deg);
+  text-align: left;
+}
+
+.right {
+  right: -1vw;
+}
