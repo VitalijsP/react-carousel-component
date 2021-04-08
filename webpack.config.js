@@ -11,29 +11,26 @@ module.exports = {
     filename: "js/main.js",
   },
   resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx"],
+    extensions: [".tsx", ".ts", ".js"],
   },
   module: {
     rules: [
       {
-        loader: "babel-loader",
         test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
+        use: [
+          {
+            loader: "babel-loader",
+          },
+        ],
       },
       {
         test: /\.css$/,
-        use: [
-          "style-loader", 
-          "css-loader",
-        ],
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.s[ac]ss$/i,
-        use: [
-          "style-loader",
-          "css-loader",
-          "sass-loader",
-        ],
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
     ],
   },
@@ -43,7 +40,8 @@ module.exports = {
     }),
     new ForkTsCheckerWebpackPlugin(),
   ],
-  devtool: "source-map", /* for debugging "cheap-module-eval-source-map" , prodaction No, after that restart server */
+  devtool:
+    "source-map" /* for debugging "cheap-module-eval-source-map" , prodaction No, after that restart server */,
   devServer: {
     port: 5000,
     contentBase: path.resolve(__dirname, "dist"),

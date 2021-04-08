@@ -1,9 +1,9 @@
-import "./carousel.scss";
+import './carousel.scss';
 
-import React, { FC, ReactNodeArray, useEffect, useState } from "react";
+import React, { FC, ReactNodeArray, useEffect, useRef, useState } from 'react';
 
-import { Arrow } from "../arrow/Arrow";
-import { Dots } from "../dots/Dots";
+import { Arrow } from '../arrow/Arrow';
+import { Dots } from '../dots/Dots';
 
 type Props = {
   children: ReactNodeArray;
@@ -16,7 +16,11 @@ export const Carousel: FC<Props> = ({ children }) => {
   const [touchDirection, setTouchDirection] = useState<number[]>([]);
   const [translate, setTranslate] = useState(0);
 
+  const sliderEl = useRef<HTMLDivElement>(null);
+
   const currPosition = (-100 / children.length) * currIndex;
+  const threshold = 50;
+  const validMovement = Math.abs(translate) > threshold;
 
   const moveForward = () => {
     setCurrIndex(currIndex + 1);
@@ -33,15 +37,11 @@ export const Carousel: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     if (
-      translate > 50 &&
-      dragDirection.length === 2 &&
-      dragDirection[0] > dragDirection[1]
+      validMovement && dragDirection.length === 2 && dragDirection[0] > dragDirection[1]
     ) {
       moveForward();
     } else if (
-      translate < -50 &&
-      dragDirection.length === 2 &&
-      dragDirection[0] < dragDirection[1]
+      validMovement && dragDirection.length === 2 && dragDirection[0] < dragDirection[1]
     ) {
       moveBackward();
     }
@@ -49,15 +49,11 @@ export const Carousel: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     if (
-      translate > 50 &&
-      touchDirection.length === 2 &&
-      touchDirection[0] > touchDirection[1]
+      validMovement && touchDirection.length === 2 && touchDirection[0] > touchDirection[1]
     ) {
       moveForward();
     } else if (
-      translate < -50 &&
-      touchDirection.length === 2 &&
-      touchDirection[0] < touchDirection[1]
+      validMovement && touchDirection.length === 2 && touchDirection[0] < touchDirection[1]
     ) {
       moveBackward();
     }
@@ -100,45 +96,40 @@ export const Carousel: FC<Props> = ({ children }) => {
   };
 
   return (
-    <div className="container">
-      <div className="carousel">
-        <Arrow position="left" handleOnClick={() => moveBackward()}>
-          ➲
-        </Arrow>
-        <Arrow position="right" handleOnClick={() => moveForward()}>
-          ➲
-        </Arrow>
-        <div
-          onMouseDown={(e) => mouseDownHandler(e)}
-          onMouseUp={(e) => mouseUpHandler(e)}
-          onMouseMove={(e) => mouseMoveHandler(e)}
-          onTouchStart={(e) => touchStartHandler(e)}
-          onTouchEnd={(e) => touchEndtHandler(e)}
-          onTouchMove={(e) => touchMoveHandler(e)}
-          className="carousel__slides"
-          style={{
-            transform: `translateX(${currPosition}%)`,
-            width: `${100 * children.length}%`,
-            cursor: `${isDragging ? "grabbing" : "grab"}`,
-          }}
-        >
-          {children.map((slide, i) => (
-            <div
-              key={i}
-              className="carousel__slide"
-              style={{
-                flexBasis: `${100 / children.length}%`,
-                transform: `${isDragging ? "scale(0.994)" : "scale(1)"}`,
-              }}
-            >
-              {slide}
-            </div>
-          ))}
-        </div>
+    <div className="carousel">
+      <div
+        className="carousel__slides"
+        style={{
+          transform: `translateX(${currPosition}%)`,
+          width: `${100 * children.length}%`,
+          cursor: `${isDragging ? "grabbing" : "grab"}`,
+        }}
+        onMouseDown={(e) => mouseDownHandler(e)}
+        onMouseUp={(e) => mouseUpHandler(e)}
+        onMouseMove={(e) => mouseMoveHandler(e)}
+        onTouchStart={(e) => touchStartHandler(e)}
+        onTouchEnd={(e) => touchEndtHandler(e)}
+        onTouchMove={(e) => touchMoveHandler(e)}
+        ref={sliderEl}
+      >
+        {children.map((slide, i) => (
+          <div
+            key={i + 1}
+            className="carousel__slide"
+            style={{
+              flexBasis: `${100 / children.length}%`,
+              transform: `${isDragging ? "scale(0.994)" : "scale(1)"}`,
+            }}
+          >
+            {slide}
+          </div>
+        ))}
       </div>
-      <Dots onClickHandler={(i) => onClickHandler(i)} currIndex={currIndex}>
-        {children}
-      </Dots>
+      <div className="nav">
+        <Arrow position="left" handleOnClick={() => moveBackward()} />
+        <Dots onClickHandler={(i) => onClickHandler(i)} currIndex={currIndex}>{children}</Dots>
+        <Arrow position="right" handleOnClick={() => moveForward()} />
+      </div>
     </div>
   );
 };

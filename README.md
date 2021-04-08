@@ -12,4 +12,4 @@ then you can run the local dev server using:
 
 ### npm start
 
-This will start the dev server at localhost:8000.
+This will start the dev server at localhost:5000.

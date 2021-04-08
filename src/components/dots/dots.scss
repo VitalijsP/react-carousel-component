@@ -1,28 +1,32 @@
 @import "../../styles/variables";
 .carousel__dots {
+
   cursor: pointer;
+  color: black;
   display: flex;
   justify-content: center;
-  padding: 4px 0;
 }
 
 .carousel__dot {
-  width: 5%;
-  min-height: 10px;
+  display: flex;
+  width: 2vw;
   background-color: $DarkBlue;
   justify-content: center;
-  margin: 2px;
+  margin: 0 0.2vw;
   opacity: 0.3;
   transition: opacity 0.2s ease;
+
   &:hover {
     opacity: 0.7;
   }
 }
 
 .active {
-  opacity: 1;
+  opacity: 9;
+  background-color: $DarkBlue;
 
   &:hover {
-    opacity: 1;
+    opacity: 9;
+    background-color: $DarkBlue;
   }
 }
